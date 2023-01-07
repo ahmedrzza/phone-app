@@ -11,26 +11,21 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  
   editContact(context, index) {
     setState(() {
       Navigator.pop(context);
       Contact[index] = {
         "name": Contact[index]['Name'].text,
-        "Sirname":Contact[index]['Surname'].text,
+        "Sirname": Contact[index]['Surname'].text,
         "number": Contact[index]['Phone'].text
       };
-      
     });
     print(Contact);
   }
+
   deleteContact(context, index) {
     setState(() {
-      Contact[index] = {
-        "name": Contact[index]['Name'].text == '',
-        "userName": Contact[index]['Surname'].text == '',
-        "number": Contact[index]['Phone'].text == '',
-      };
+      Contact.removeAt(index);
     });
   }
 
@@ -60,11 +55,10 @@ class _ContactScreenState extends State<ContactScreen> {
           itemCount: Contact.length,
           itemBuilder: (context, index) {
             return ListTile(
-              
               leading: CircleAvatar(
                 backgroundColor: Colors.grey,
                 child: Text("${Contact[index]['Name'][0]}"),
-              ) ,
+              ),
               title: Row(
                 children: [
                   Text("${Contact[index]['Name']}"),
@@ -75,16 +69,20 @@ class _ContactScreenState extends State<ContactScreen> {
                 ],
               ),
               subtitle: Text("${Contact[index]['Phone']}"),
-
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(onPressed: () {
-                    deleteContact(context, index);
-                  }, icon: Icon(Icons.delete)),
-                  IconButton(onPressed: () {
-                    editContact(context, index);
-                  }, icon: Icon(Icons.edit))
+                  IconButton(
+                    onPressed: () {
+                      deleteContact(context, index);
+                    },
+                    icon: Icon(Icons.delete),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        editContact(context, index);
+                      },
+                      icon: Icon(Icons.edit))
                 ],
               ),
             );
@@ -106,4 +104,3 @@ class _ContactScreenState extends State<ContactScreen> {
     );
   }
 }
-
